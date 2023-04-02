@@ -35,8 +35,11 @@ public class OperationsController {
 			   /api/operacoes/dividir-query?num1={numero1}&num2={numero2}
 			   /api/operacoes/dividir-path/{numero1}/{numero2}
 			   
-			   /api/operacoes/meda-query?num1={numero1}&num2={numero2}
+			   /api/operacoes/media-query?num1={numero1}&num2={numero2}
 			   /api/operacoes/media-path/{numero1}/{numero2}
+			   
+			   /api/operacoes/potencia-query?base={base}&expoente={expoente}
+			   /api/operacoes/potencia-path/{base}/{expoente}
 			   
 			   /api/operacoes/raiz-query?num={numero}
 			   /api/operacoes/raiz-path/{numero}
@@ -209,26 +212,26 @@ public class OperationsController {
 	// endpoints para operação de POTENCIAÇÃO
 	@GetMapping("/potencia-query")
 	public Double potenciaQuery(
-			@RequestParam(value = "num1", defaultValue = "0") String num1,
-			@RequestParam(value = "num2", defaultValue = "0") String num2) {
+			@RequestParam(value = "base", defaultValue = "0") String base,
+			@RequestParam(value = "expoente", defaultValue = "0") String expoente) {
 		
 		Double resultado = Calculadora.potencia(
-				ConversorNumerico.converteParaDouble(num1),
-				ConversorNumerico.converteParaDouble(num2));
+				ConversorNumerico.converteParaDouble(base),
+				ConversorNumerico.converteParaDouble(expoente));
 
 		Logger.getLogger(OperationsController.class.getName())
 			.log(Level.INFO, "Resultado da potenciação com query params: " + resultado);
 
 		return resultado;
 	}
-	@GetMapping("/potencia-path/{num1}/{num2}")
+	@GetMapping("/potencia-path/{base}/{expoente}")
 	public Double potenciaPath(
-			@PathVariable(value = "num1") String num1,
-			@PathVariable(value = "num2") String num2) {
+			@PathVariable(value = "base") String base,
+			@PathVariable(value = "expoente") String expoente) {
 		
 		Double resultado = Calculadora.potencia(
-				ConversorNumerico.converteParaDouble(num1),
-				ConversorNumerico.converteParaDouble(num2));
+				ConversorNumerico.converteParaDouble(base),
+				ConversorNumerico.converteParaDouble(expoente));
 
 		Logger.getLogger(OperationsController.class.getName())
 			.log(Level.INFO, "Resultado da potenciação com path params: " + resultado);
